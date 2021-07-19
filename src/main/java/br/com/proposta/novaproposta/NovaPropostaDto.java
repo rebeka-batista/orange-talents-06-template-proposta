@@ -32,7 +32,8 @@ public class NovaPropostaDto {
     @JsonProperty("salario")
     private BigDecimal salario;
 
-    NovaPropostaDto(){}
+    NovaPropostaDto() {
+    }
 
     public NovaPropostaDto(PropostaEntity proposta) {
         this.nome = nome;
@@ -47,4 +48,7 @@ public class NovaPropostaDto {
         return new PropostaEntity(this.nome, this.email, this.documento, this.endereco, this.salario);
     }
 
+    public String getDocumento() {
+        return documento;
+    }
 }

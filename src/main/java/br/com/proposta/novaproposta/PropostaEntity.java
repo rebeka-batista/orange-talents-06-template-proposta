@@ -30,6 +30,7 @@ public class PropostaEntity {
     @Column(name = "salario", nullable = false)
     private BigDecimal salario;
 
+    public PropostaEntity(){}
 
     public PropostaEntity(@NotBlank String nome, @NotBlank @Email String email,
                           @NotNull String documento, @NotBlank String endereco,
