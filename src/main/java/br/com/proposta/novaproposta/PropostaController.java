@@ -1,5 +1,8 @@
 package br.com.proposta.novaproposta;
 
+import br.com.proposta.consultadadossolicitante.AnaliseDadosClient;
+import br.com.proposta.consultadadossolicitante.RetornoStatus;
+import br.com.proposta.consultadadossolicitante.StatusProposta;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -11,7 +14,6 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.transaction.Transactional;
 import javax.validation.Valid;
-import java.net.URI;
 
 @RestController
 @RequestMapping("/proposta")
@@ -23,6 +25,9 @@ public class PropostaController {
     @Autowired
     private PropostaRepository propostaRepository;
 
+    @Autowired
+    private AnaliseDadosClient analise;
+
     @PostMapping("/cadastro")
     @Transactional
     public ResponseEntity<?> cadastrarProposta(@RequestBody @Valid NovaPropostaDto novaProposta) {
@@ -31,11 +36,18 @@ public class PropostaController {
             return ResponseEntity.unprocessableEntity().build();
         }
 
+        var retornoApi = analise.avaliaProposta(novaProposta);
+        System.out.println(retornoApi);
+        if (novaProposta.getStatusProposta() == StatusProposta.COM_RESTRICAO) {
+            novaProposta.setRetornoStatus(RetornoStatus.NAO_ELEGIVEL);
+        } else {
+            novaProposta.setRetornoStatus(RetornoStatus.ELEGIVEL);
+        }
+
         PropostaEntity proposta = novaProposta.toModel();
         manager.persist(proposta);
-        return ResponseEntity.created(URI.create("http://localhost:8080/proposta/cadastro")).build();
+        return ResponseEntity.status(201).body(retornoApi);
     }
-
 
     private Boolean possivelProposta(String documento) {
         return propostaRepository.findByDocumento(documento).isPresent();
