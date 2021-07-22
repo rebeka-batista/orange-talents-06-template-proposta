@@ -61,32 +61,4 @@ public class PropostaEntity {
                 "\nSalario: " + salario;
     }
 
-
-    public Long getIdProposta() {
-        return idProposta;
-    }
-
-    public String getNome() {
-        return nome;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public String getDocumento() {
-        return documento;
-    }
-
-    public String getEndereco() {
-        return endereco;
-    }
-
-    public BigDecimal getSalario() {
-        return salario;
-    }
-
-    public RetornoStatus getStatusProposta() {
-        return statusProposta;
-    }
 }

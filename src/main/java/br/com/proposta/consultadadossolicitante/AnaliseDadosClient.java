@@ -1,6 +1,6 @@
 package br.com.proposta.consultadadossolicitante;
 
-import br.com.proposta.novaproposta.NovaPropostaDto;
+import br.com.proposta.novaproposta.NovaPropostaRequest;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -11,5 +11,5 @@ import java.util.Map;
 public interface AnaliseDadosClient {
 
     @PostMapping("api/solicitacao")
-    Map<Object, String> avaliaProposta(@RequestBody NovaPropostaDto request);
+    Map<Object, String> avaliaProposta(@RequestBody NovaPropostaRequest request);
 }

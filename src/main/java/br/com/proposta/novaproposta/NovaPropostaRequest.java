@@ -11,12 +11,13 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Positive;
 import java.math.BigDecimal;
 
-public class NovaPropostaDto {
+public class NovaPropostaRequest {
 
     @NotBlank
     @JsonProperty("nome")
     private String nome;
 
+    @NotBlank
     @Email
     @JsonProperty("email")
     private String email;
@@ -40,11 +41,12 @@ public class NovaPropostaDto {
     private RetornoStatus retornoStatus;
     private StatusProposta statusProposta;
 
-    NovaPropostaDto() {
+    NovaPropostaRequest() {
     }
 
-    public NovaPropostaDto(String nome, String email, String documento,
-                           String endereco, BigDecimal salario, Long idProposta, StatusProposta statusProposta) {
+    public NovaPropostaRequest(@NotBlank String nome, @NotBlank @Email String email, @NotBlank String documento,
+                               @NotBlank String endereco, @NotNull BigDecimal salario, @NotNull Long idProposta,
+                               @NotNull StatusProposta statusProposta) {
         this.idProposta = idProposta;
         this.nome = nome;
         this.email = email;
@@ -55,8 +57,9 @@ public class NovaPropostaDto {
         this.statusProposta = statusProposta;
     }
 
-    public NovaPropostaDto(String nome, String email, String documento,
-                           String endereco, BigDecimal salario, Long idProposta, RetornoStatus status) {
+    public NovaPropostaRequest(@NotBlank String nome, @NotBlank @Email String email, @NotBlank String documento,
+                               @NotBlank String endereco, @NotNull BigDecimal salario, @NotNull Long idProposta,
+                               @NotNull RetornoStatus status) {
         this.idProposta = idProposta;
         this.nome = nome;
         this.documento = documento;

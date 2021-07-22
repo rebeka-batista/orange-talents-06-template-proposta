@@ -30,7 +30,7 @@ public class PropostaController {
 
     @PostMapping("/cadastro")
     @Transactional
-    public ResponseEntity<?> cadastrarProposta(@RequestBody @Valid NovaPropostaDto novaProposta) {
+    public ResponseEntity<?> cadastrarProposta(@RequestBody @Valid NovaPropostaRequest novaProposta) {
 
         if (possivelProposta(novaProposta.getDocumento())) {
             return ResponseEntity.unprocessableEntity().build();
