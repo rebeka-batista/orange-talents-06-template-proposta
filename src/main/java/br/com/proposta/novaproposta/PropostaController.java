@@ -3,17 +3,21 @@ package br.com.proposta.novaproposta;
 import br.com.proposta.consultadadossolicitante.AnaliseDadosClient;
 import br.com.proposta.consultadadossolicitante.RetornoStatus;
 import br.com.proposta.consultadadossolicitante.StatusProposta;
+import feign.FeignException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.transaction.Transactional;
 import javax.validation.Valid;
+import java.net.URI;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/proposta")
@@ -32,26 +36,41 @@ public class PropostaController {
     @Transactional
     public ResponseEntity<?> cadastrarProposta(@RequestBody @Valid NovaPropostaRequest novaProposta) {
 
-        if (possivelProposta(novaProposta.getDocumento())) {
-            return ResponseEntity.unprocessableEntity().build();
+        Optional<PropostaEntity> documento = propostaRepository.findByDocumento(novaProposta.getDocumento());
+        if (!documento.isPresent()) {
+            var retornoApi = analise.avaliaProposta(novaProposta);
+            PropostaEntity proposta = novaProposta.toModel(manager);
+            geraURI(proposta);
+            try {
+                defineElegibilidade(novaProposta);
+                manager.persist(proposta);
+                return ResponseEntity.status(201).body(retornoApi);
+
+            } catch (FeignException e) {
+                defineElegibilidade(novaProposta);
+                return ResponseEntity.status(422).build();
+            }
         }
 
-        var retornoApi = analise.avaliaProposta(novaProposta);
-        System.out.println(retornoApi);
-        if (novaProposta.getStatusProposta() == StatusProposta.COM_RESTRICAO) {
-            novaProposta.setRetornoStatus(RetornoStatus.NAO_ELEGIVEL);
+        return ResponseEntity.status(422).build();
+    }
+
+
+    private void defineElegibilidade(NovaPropostaRequest request) {
+        if (request.getStatusProposta() == StatusProposta.COM_RESTRICAO) {
+            request.setStatus(RetornoStatus.NAO_ELEGIVEL);
         } else {
-            novaProposta.setRetornoStatus(RetornoStatus.ELEGIVEL);
+            request.setStatus(RetornoStatus.ELEGIVEL);
         }
-
-        PropostaEntity proposta = novaProposta.toModel();
-        manager.persist(proposta);
-        return ResponseEntity.status(201).body(retornoApi);
     }
 
-    private Boolean possivelProposta(String documento) {
-        return propostaRepository.findByDocumento(documento).isPresent();
+    private void geraURI(PropostaEntity proposta) {
+        URI uri = ServletUriComponentsBuilder.fromCurrentRequestUri()
+                .path("/{id}")
+                .buildAndExpand(proposta.getIdProposta())
+                .toUri();
     }
+
 
 }
 

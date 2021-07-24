@@ -5,6 +5,7 @@ import br.com.proposta.consultadadossolicitante.StatusProposta;
 import br.com.proposta.validator.Documento;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import javax.persistence.EntityManager;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
@@ -70,8 +71,12 @@ public class NovaPropostaRequest {
     }
 
 
-    public PropostaEntity toModel() {
+    public PropostaEntity toModel(EntityManager manager) {
         return new PropostaEntity(this.idProposta, this.nome, this.email, this.documento, this.endereco, this.salario, this.retornoStatus);
+    }
+
+    public void setStatus(RetornoStatus status) {
+        this.retornoStatus = status;
     }
 
 

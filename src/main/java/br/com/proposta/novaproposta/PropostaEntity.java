@@ -61,4 +61,7 @@ public class PropostaEntity {
                 "\nSalario: " + salario;
     }
 
+    public Long getIdProposta() {
+        return idProposta;
+    }
 }

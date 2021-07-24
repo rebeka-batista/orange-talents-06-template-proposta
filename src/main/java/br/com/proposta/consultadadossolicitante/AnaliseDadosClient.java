@@ -7,9 +7,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 
 import java.util.Map;
 
-@FeignClient(name = "analise-proposta", url = "http://localhost:9999/")
+@FeignClient(name = "analise-proposta", url = "http://localhost:9999")
 public interface AnaliseDadosClient {
 
-    @PostMapping("api/solicitacao")
+    @PostMapping("/api/solicitacao")
     Map<Object, String> avaliaProposta(@RequestBody NovaPropostaRequest request);
 }
