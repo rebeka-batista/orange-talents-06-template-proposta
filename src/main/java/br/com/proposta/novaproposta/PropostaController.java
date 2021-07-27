@@ -58,15 +58,5 @@ public class PropostaController {
         return ResponseEntity.status(422).build();
     }
 
-    // metodo para proposta
-    private void defineElegibilidade(NovaPropostaRequest request) {
-        if (request.getStatusProposta() == StatusProposta.COM_RESTRICAO) {
-            request.setStatus(RetornoStatus.NAO_ELEGIVEL);
-        } else {
-            request.setStatus(RetornoStatus.ELEGIVEL);
-        }
-    }
-
-
 }
 

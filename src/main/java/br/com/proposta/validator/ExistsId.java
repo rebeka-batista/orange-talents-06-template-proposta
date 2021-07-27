@@ -15,7 +15,7 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
 @Retention(RUNTIME)
 public @interface ExistsId {
 
-    String message() default "{br.com.casadocodigo.validator.existsid}";
+    String message() default "{br.com.proposta.validator.existsid}";
     Class<?>[] groups() default {};
     Class<? extends Payload>[] payload() default {};
     String fieldName();

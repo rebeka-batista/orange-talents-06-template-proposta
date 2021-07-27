@@ -22,7 +22,7 @@ import java.lang.annotation.Target;
 @CNPJ
 public @interface Documento {
 
-    String message() default "{br.com.casadocodigo.validator.documento}";
+    String message() default "{br.com.proposta.validator.documento}";
 
     Class<?>[] groups() default {};
 

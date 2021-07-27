@@ -15,7 +15,6 @@ public class AcompanhamentoPropostaController {
     @Autowired
     private PropostaRepository repository;
 
-
     @GetMapping("/acompanhamento/{id}")
     public ResponseEntity<?> acompanharProposta(@PathVariable Long id) {
         var lista = repository.findById(id);

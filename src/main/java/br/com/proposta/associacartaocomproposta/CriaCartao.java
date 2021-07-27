@@ -17,7 +17,6 @@ public class CriaCartao {
     public void criaNovoCartaoMedianteProposta() {
         try {
             Object lista = repository.buscaIdPropostaECartao();
-
             System.out.println(lista);
         } catch (IllegalThreadStateException ex) {
             ex.getCause();

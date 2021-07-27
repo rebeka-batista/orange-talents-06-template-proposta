@@ -38,7 +38,7 @@ public class AssociaCartaoPropostaController {
         } catch (FeignException e) {
             return ResponseEntity.status(400).build();
         }
-        return ResponseEntity.status(400).build();
+        return ResponseEntity.status(404).build();
     }
 
 }
