@@ -1,6 +1,20 @@
 version: '3'
 services:
 
+  proposta:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: br.com/proposta
+    ports:
+      - 8081:8080
+    restart: always
+  #  depends_on:
+  #    - meu_db
+    environment:
+      SPRING_PROFILES_ACTIVE: prod
+
+
   zookeeper:
     image: "confluentinc/cp-zookeeper:5.2.1"
     environment:

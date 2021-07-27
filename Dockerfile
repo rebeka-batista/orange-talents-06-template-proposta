@@ -1,5 +1,6 @@
 FROM openjdk:11
 MAINTAINER Rebeka Batista
-ARG JAR_FILE=target/*.jar
-COPY ${JAR_FILE} proposta-app.jar
-ENTRYPOINT ["java", "-jar", "proposta-app.jar"]
+WORKDIR proposta
+EXPOSE 8080
+ADD target/*.jar /proposta/proposta.jar
+ENTRYPOINT ["java", "-jar", "proposta.jar"]
