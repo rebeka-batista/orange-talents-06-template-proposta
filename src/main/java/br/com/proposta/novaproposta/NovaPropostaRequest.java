@@ -23,7 +23,7 @@ public class NovaPropostaRequest {
     @JsonProperty("email")
     private String email;
 
-    @Documento(domainClass = PropostaEntity.class, fieldName = "documento")
+    @Documento(domainClass = Proposta.class, fieldName = "documento")
     @JsonProperty("documento")
     private String documento;
 
@@ -45,21 +45,21 @@ public class NovaPropostaRequest {
     NovaPropostaRequest() {
     }
 
-    public NovaPropostaRequest(@NotBlank String nome, @NotBlank @Email String email, @NotBlank String documento,
-                               @NotBlank String endereco, @NotNull BigDecimal salario, @NotNull Long idProposta,
-                               @NotNull StatusProposta statusProposta) {
+    public NovaPropostaRequest(@NotNull Long idProposta, @NotBlank String nome, @NotBlank String documento,
+                               @NotBlank @Email String email, @NotNull BigDecimal salario,
+                               @NotNull StatusProposta statusProposta, @NotBlank String endereco) {
+
         this.idProposta = idProposta;
         this.nome = nome;
-        this.email = email;
         this.documento = documento;
-        this.endereco = endereco;
+        this.email = email;
         this.salario = salario;
-        this.idProposta = idProposta;
         this.statusProposta = statusProposta;
+        this.endereco = endereco;
     }
 
-    public NovaPropostaRequest(@NotBlank String nome, @NotBlank @Email String email, @NotBlank String documento,
-                               @NotBlank String endereco, @NotNull BigDecimal salario, @NotNull Long idProposta,
+    public NovaPropostaRequest(@NotNull Long idProposta, @NotBlank String nome, @NotBlank String documento,
+                               @NotBlank @Email String email, @NotNull BigDecimal salario, @NotBlank String endereco,
                                @NotNull RetornoStatus status) {
         this.idProposta = idProposta;
         this.nome = nome;
@@ -71,8 +71,8 @@ public class NovaPropostaRequest {
     }
 
 
-    public PropostaEntity toModel(EntityManager manager) {
-        return new PropostaEntity(this.idProposta, this.nome, this.email, this.documento, this.endereco, this.salario, this.retornoStatus);
+    public Proposta toModel(EntityManager manager) {
+        return new Proposta(this.idProposta, this.nome, this.email, this.documento, this.endereco, this.salario, this.retornoStatus);
     }
 
     public void setStatus(RetornoStatus status) {

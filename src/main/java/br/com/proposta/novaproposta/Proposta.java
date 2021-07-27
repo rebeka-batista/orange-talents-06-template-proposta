@@ -9,8 +9,8 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Positive;
 import java.math.BigDecimal;
 
-@Entity(name = "proposta")
-public class PropostaEntity {
+@Entity
+public class Proposta {
 
     @Id
     private Long idProposta;
@@ -34,13 +34,15 @@ public class PropostaEntity {
     @Enumerated(EnumType.STRING)
     private RetornoStatus statusProposta;
 
-    public PropostaEntity() {
+    private String cartao;
+
+    public Proposta() {
     }
 
-    public PropostaEntity(Long idProposta,
-                          @NotBlank String nome, @NotBlank @Email String email,
-                          @NotNull String documento, @NotBlank String endereco,
-                          @NotNull BigDecimal salario, RetornoStatus statusProposta) {
+    public Proposta(Long idProposta,
+                    @NotBlank String nome, @NotBlank @Email String email,
+                    @NotNull String documento, @NotBlank String endereco,
+                    @NotNull BigDecimal salario, RetornoStatus statusProposta) {
         this.idProposta = idProposta;
         this.nome = nome;
         this.email = email;
@@ -50,12 +52,25 @@ public class PropostaEntity {
         this.statusProposta = statusProposta;
     }
 
+    public Proposta(Long idProposta, String nome, String email, String documento,
+                    String endereco, BigDecimal salario, RetornoStatus statusProposta,
+                    String cartao) {
+        this.idProposta = idProposta;
+        this.nome = nome;
+        this.email = email;
+        this.documento = documento;
+        this.endereco = endereco;
+        this.salario = salario;
+        this.statusProposta = statusProposta;
+        this.cartao = cartao;
+    }
+
     @Override
     public String toString() {
         return "Proposta: " +
                 "\nId da Proposta: " + idProposta +
                 "\nNome: " + nome +
-                ",\nEmail: " + email +
+                "\nEmail: " + email +
                 "\nDocumento: " + documento +
                 "\nEndereco: " + endereco +
                 "\nSalario: " + salario;
@@ -63,5 +78,33 @@ public class PropostaEntity {
 
     public Long getIdProposta() {
         return idProposta;
+    }
+
+    public String getNome() {
+        return nome;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public String getDocumento() {
+        return documento;
+    }
+
+    public String getEndereco() {
+        return endereco;
+    }
+
+    public BigDecimal getSalario() {
+        return salario;
+    }
+
+    public RetornoStatus getStatusProposta() {
+        return statusProposta;
+    }
+
+    public String getCartao() {
+        return cartao;
     }
 }

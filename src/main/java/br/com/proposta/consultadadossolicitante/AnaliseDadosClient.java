@@ -11,5 +11,5 @@ import java.util.Map;
 public interface AnaliseDadosClient {
 
     @PostMapping("/api/solicitacao")
-    Map<Object, String> avaliaProposta(@RequestBody NovaPropostaRequest request);
+    Map<Object, ?> avaliaProposta(@RequestBody NovaPropostaRequest request);
 }
