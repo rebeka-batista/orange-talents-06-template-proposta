@@ -24,4 +24,6 @@ public interface PropostaRepository extends JpaRepository<Proposta, Long> {
     @Query(value = "SELECT p FROM Proposta p WHERE p.cartao is null AND p.id is not null")
     List<Proposta> buscaIdPropostaECartao();
 
+
+    Optional<Proposta> findByCartao(String cartao);
 }
