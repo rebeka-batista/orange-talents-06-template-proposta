@@ -10,9 +10,6 @@ import java.util.Optional;
 @Repository
 public interface BloqueioCartaoRepository extends JpaRepository<BloqueioCartao, Long> {
 
-//    @Query("SELECT 1 FROM BloqueioCartao WHERE proposta_id = :idProposta")
-//    Optional<BloqueioCartao> buscaIdProposta(@Param("idProposta") Long idProposta);
-
     @Query("SELECT 1 FROM BloqueioCartao WHERE proposta_id_proposta = :idProposta")
     Optional<BloqueioCartao> buscaIdProposta(@Param("idProposta") Long idProposta);
 
