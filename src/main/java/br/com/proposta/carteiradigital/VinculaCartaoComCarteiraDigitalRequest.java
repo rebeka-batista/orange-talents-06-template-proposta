@@ -1,8 +1,6 @@
 package br.com.proposta.carteiradigital;
 
 import br.com.proposta.novaproposta.Proposta;
-import br.com.proposta.validator.ExistsId;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import javax.persistence.EntityManager;
@@ -19,8 +17,6 @@ public class VinculaCartaoComCarteiraDigitalRequest {
     @JsonProperty("associaCarteiraDigital")
     private AssociaCarteiraDigital associaCarteiraDigital;
 
-
-    // @ExistsId(domainClass = Proposta.class, fieldName = "idProposta")
     @JsonProperty("idProposta")
     private Long idProposta;
 

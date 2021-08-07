@@ -13,5 +13,4 @@ public interface CarteiraDigitalRepository extends JpaRepository<CarteiraDigital
     @Query("SELECT 1 FROM CarteiraDigital WHERE proposta_id_proposta = :idProposta")
     Optional<CarteiraDigital> buscaIdProposta(@Param("idProposta") Long idProposta);
 
-
 }

@@ -3,8 +3,6 @@ package br.com.proposta.carteiradigital;
 import br.com.proposta.novaproposta.Proposta;
 
 import javax.persistence.*;
-import javax.validation.constraints.Email;
-import javax.validation.constraints.NotBlank;
 
 @Entity
 public class CarteiraDigital {
@@ -22,14 +20,6 @@ public class CarteiraDigital {
     @ManyToOne
     private Proposta proposta;
 
-//    public CarteiraDigital(@NotBlank @Email String email, AssociaCarteiraDigital associaCarteiraDigital, Proposta proposta) {
-//    }
-
-//    public CarteiraDigital(String email, AssociaCarteiraDigital associaCarteiraDigital, Proposta proposta) {
-//        this.email = email;
-//        this.associaCarteiraDigital = associaCarteiraDigital;
-//        this.proposta = proposta;
-//    }
 
     public CarteiraDigital(String email, AssociaCarteiraDigital associaCarteiraDigital, Proposta proposta) {
         this.idCarteira = idCarteira;
@@ -37,8 +27,6 @@ public class CarteiraDigital {
         this.associaCarteiraDigital = associaCarteiraDigital;
         this.proposta = proposta;
     }
-
-
 
     public Long getIdCarteira() {
         return idCarteira;

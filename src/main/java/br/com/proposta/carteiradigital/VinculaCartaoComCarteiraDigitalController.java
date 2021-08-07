@@ -19,7 +19,6 @@ import java.net.URI;
 import java.util.Optional;
 
 @RestController
-//@RequestMapping("/vincula-cartao")
 public class VinculaCartaoComCarteiraDigitalController {
 
     @PersistenceContext
@@ -36,12 +35,11 @@ public class VinculaCartaoComCarteiraDigitalController {
     public ResponseEntity<?> associaCarteira(@PathVariable("idProposta") Long idProposta,
                                              @RequestBody @Valid VinculaCartaoComCarteiraDigitalRequest request) {
         Optional<CarteiraDigital> buscandoAssociacao = associaCartaoRepository.buscaIdProposta(idProposta);
-//        var exists = propostaRepository.existsById(idProposta);
+
         if (buscandoAssociacao.isPresent()) {
-//        if (!exists) {
             return ResponseEntity.unprocessableEntity().build();
         }
-//        var idCarteira = 0;
+
         CarteiraDigital associaCartaoCarteira = request.converter(manager);
 
         URI uri = ServletUriComponentsBuilder.fromCurrentRequestUri()
@@ -50,16 +48,14 @@ public class VinculaCartaoComCarteiraDigitalController {
                 .toUri();
 
         Optional<Proposta> proposta = propostaRepository.findById(idProposta);
+
         if (proposta.isPresent()) {
             manager.persist(associaCartaoCarteira);
             return ResponseEntity.status(201).header(HttpHeaders.LOCATION, String.valueOf(uri)).build();
         } else {
             return ResponseEntity.notFound().build();
         }
-//
-//        return ResponseEntity.ok().body(buscandoAssociacao);
 
     }
 }
-
 
