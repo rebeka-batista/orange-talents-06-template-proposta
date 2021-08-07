@@ -26,4 +26,8 @@ public interface PropostaRepository extends JpaRepository<Proposta, Long> {
 
 
     Optional<Proposta> findByCartao(String cartao);
+
+    boolean existsById(Long id);
+
+
 }
