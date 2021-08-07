@@ -31,17 +31,17 @@ public class AvisoViagemController {
 
     @PostMapping("/aviso-viagem/{idProposta}")
     @Transactional
-    public ResponseEntity<?> criaAvisoViagem (@PathVariable("idProposta") Long idProposta,
-                                              @RequestBody @Valid AvisoViagemRequest avisoViagemRequest, HttpServletRequest request){
+    public ResponseEntity<?> cadastraAvisoViagem(@PathVariable("idProposta") Long idProposta,
+                                                 @RequestBody @Valid AvisoViagemRequest avisoViagemRequest, HttpServletRequest request) {
 
         Optional<Proposta> checaProposta = propostaRepository.findById(idProposta);
 
-        if(checaProposta.isPresent()){
+        if (checaProposta.isPresent()) {
             Proposta proposta = manager.find(Proposta.class, idProposta);
             AvisoViagem avisoviagem = avisoViagemRequest.converter(proposta, request);
             var avisoViagem = avisoViagemRepository.save(avisoviagem);
             return ResponseEntity.ok().body(avisoViagem);
-        }else{
+        } else {
             return ResponseEntity.notFound().build();
         }
     }
