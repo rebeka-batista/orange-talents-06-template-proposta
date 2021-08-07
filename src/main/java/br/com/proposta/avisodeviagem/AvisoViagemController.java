@@ -2,6 +2,7 @@ package br.com.proposta.avisodeviagem;
 
 import br.com.proposta.novaproposta.Proposta;
 import br.com.proposta.novaproposta.PropostaRepository;
+import feign.FeignException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -34,15 +35,19 @@ public class AvisoViagemController {
     public ResponseEntity<?> cadastraAvisoViagem(@PathVariable("idProposta") Long idProposta,
                                                  @RequestBody @Valid AvisoViagemRequest avisoViagemRequest, HttpServletRequest request) {
 
-        Optional<Proposta> checaProposta = propostaRepository.findById(idProposta);
+        try {
+            Optional<Proposta> checaProposta = propostaRepository.findById(idProposta);
 
-        if (checaProposta.isPresent()) {
-            Proposta proposta = manager.find(Proposta.class, idProposta);
-            AvisoViagem avisoviagem = avisoViagemRequest.converter(proposta, request);
-            var avisoViagem = avisoViagemRepository.save(avisoviagem);
-            return ResponseEntity.ok().body(avisoViagem);
-        } else {
-            return ResponseEntity.notFound().build();
+            if (checaProposta.isPresent()) {
+                Proposta proposta = manager.find(Proposta.class, idProposta);
+                AvisoViagem avisoviagem = avisoViagemRequest.converter(proposta, request);
+                var avisoViagem = avisoViagemRepository.save(avisoviagem);
+                return ResponseEntity.ok().body(avisoViagem);
+            } else {
+                return ResponseEntity.notFound().build();
+            }
+        } catch (FeignException e) {
+            return ResponseEntity.badRequest().build();
         }
     }
 
