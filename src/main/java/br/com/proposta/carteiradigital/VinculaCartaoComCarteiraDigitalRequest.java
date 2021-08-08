@@ -27,7 +27,11 @@ public class VinculaCartaoComCarteiraDigitalRequest {
     public VinculaCartaoComCarteiraDigitalRequest(String email, Long idProposta,
                                                   AssociaCarteiraDigital associaCarteiraDigital) {
         this.email = email;
-        this.associaCarteiraDigital = AssociaCarteiraDigital.PAYPAL;
+        if (this.associaCarteiraDigital == AssociaCarteiraDigital.PAYPAL) {
+            this.associaCarteiraDigital = associaCarteiraDigital.PAYPAL;
+        } else {
+            this.associaCarteiraDigital = associaCarteiraDigital.SAMSUNG_PAY;
+        }
         this.idProposta = idProposta;
     }
 

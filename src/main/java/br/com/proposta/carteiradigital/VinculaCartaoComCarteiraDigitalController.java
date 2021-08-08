@@ -32,8 +32,8 @@ public class VinculaCartaoComCarteiraDigitalController {
 
     @PostMapping("/vincula-cartao/{idProposta}")
     @Transactional
-    public ResponseEntity<?> associaCarteira(@PathVariable("idProposta") Long idProposta,
-                                             @RequestBody @Valid VinculaCartaoComCarteiraDigitalRequest request) {
+    public ResponseEntity<?> vinculaCartao(@PathVariable("idProposta") Long idProposta,
+                                           @RequestBody @Valid VinculaCartaoComCarteiraDigitalRequest request) {
         Optional<CarteiraDigital> buscandoAssociacao = associaCartaoRepository.buscaIdProposta(idProposta);
 
         if (buscandoAssociacao.isPresent()) {
