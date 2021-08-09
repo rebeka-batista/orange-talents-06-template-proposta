@@ -1,6 +1,7 @@
 package br.com.proposta.novaproposta;
 
 import br.com.proposta.consultadadossolicitante.RetornoStatus;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import javax.persistence.*;
 import javax.validation.constraints.Email;
@@ -46,7 +47,8 @@ public class Proposta {
         this.idProposta = idProposta;
         this.nome = nome;
         this.email = email;
-        this.documento = documento;
+        BCryptPasswordEncoder bCrypt3 = new BCryptPasswordEncoder();
+        this.documento = bCrypt3.encode(documento);
         this.endereco = endereco;
         this.salario = salario;
         this.statusProposta = statusProposta;
@@ -58,7 +60,8 @@ public class Proposta {
         this.idProposta = idProposta;
         this.nome = nome;
         this.email = email;
-        this.documento = documento;
+        BCryptPasswordEncoder bCrypt3 = new BCryptPasswordEncoder();
+        this.documento = bCrypt3.encode(documento);
         this.endereco = endereco;
         this.salario = salario;
         this.statusProposta = statusProposta;
